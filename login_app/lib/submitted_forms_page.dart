@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
 class SubmittedFormsPage extends StatelessWidget {
+  const SubmittedFormsPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Formularios Enviados"),
+        title: const Text("Formularios Enviados"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -15,7 +17,7 @@ class SubmittedFormsPage extends StatelessWidget {
             return Card(
               child: ListTile(
                 title: Text('Formulario #$index'),
-                subtitle: Text('Detalles del formulario enviado'),
+                subtitle: const Text('Detalles del formulario enviado'),
                 onTap: () {
                   // Aquí puedes navegar a una pantalla de detalles si lo deseas
                 },

@@ -13,6 +13,8 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -20,7 +22,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
-        textTheme: TextTheme(
+        textTheme: const TextTheme(
           bodyLarge: TextStyle(color: Colors.black), // Cambiado de bodyText1 a bodyLarge
           bodyMedium: TextStyle(color: Colors.black), // Cambiado de bodyText2 a bodyMedium
           titleLarge: TextStyle(color: Colors.black, fontWeight: FontWeight.bold), // Cambiado de headline6 a titleLarge

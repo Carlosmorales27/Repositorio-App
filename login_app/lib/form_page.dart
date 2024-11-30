@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class FormPage extends StatefulWidget {
+  const FormPage({super.key});
+
   @override
   _FormPageState createState() => _FormPageState();
 }
@@ -128,10 +130,10 @@ class _FormPageState extends State<FormPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Formulario de Reporte"),
+        title: const Text("Formulario de Reporte"),
       ),
       body: _isLoading
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : Padding(
               padding: const EdgeInsets.all(16.0),
               child: SingleChildScrollView(
@@ -139,30 +141,30 @@ class _FormPageState extends State<FormPage> {
                   children: <Widget>[
                     TextField(
                       controller: _classroomController,
-                      decoration: InputDecoration(labelText: 'Salón'),
+                      decoration: const InputDecoration(labelText: 'Salón'),
                     ),
                     TextField(
                       controller: _noteController,
-                      decoration: InputDecoration(labelText: 'Nota'),
+                      decoration: const InputDecoration(labelText: 'Nota'),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: _pickImage,
-                      child: Text('Tomar Foto'),
+                      child: const Text('Tomar Foto'),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     _imageFile != null
                         ? Image.file(_imageFile!)
-                        : Text('No se ha seleccionado una imagen.'),
-                    SizedBox(height: 20),
+                        : const Text('No se ha seleccionado una imagen.'),
+                    const SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: _uploadImage,
-                      child: Text('Subir Foto'),
+                      child: const Text('Subir Foto'),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: _saveForm,
-                      child: Text('Enviar Formulario'),
+                      child: const Text('Enviar Formulario'),
                     ),
                   ],
                 ),

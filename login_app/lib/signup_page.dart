@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'login_page.dart';
 
 class SignupPage extends StatefulWidget {
+  const SignupPage({super.key});
+
   @override
   _SignupPageState createState() => _SignupPageState();
 }
@@ -34,12 +36,12 @@ class _SignupPageState extends State<SignupPage> {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text('Error'),
+          title: const Text('Error'),
           content: Text(e.toString()),
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text('OK'),
+              child: const Text('OK'),
             ),
           ],
         ),
@@ -51,13 +53,13 @@ class _SignupPageState extends State<SignupPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Registrarse"),
+        title: const Text("Registrarse"),
         backgroundColor: Colors.transparent, // AppBar transparente para un look más limpio
         elevation: 0, // Eliminar la sombra del AppBar
       ),
       body: Container(
         padding: const EdgeInsets.all(16.0),
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Colors.white, // Fondo blanco para un diseño más limpio
         ),
         child: SingleChildScrollView(
@@ -65,7 +67,7 @@ class _SignupPageState extends State<SignupPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               // Título central
-              Text(
+              const Text(
                 'Crea tu cuenta',
                 style: TextStyle(
                   fontSize: 28,
@@ -73,23 +75,23 @@ class _SignupPageState extends State<SignupPage> {
                   color: Colors.black, // Texto oscuro para contraste
                 ),
               ),
-              SizedBox(height: 40),
+              const SizedBox(height: 40),
 
               // Campo de correo electrónico
               TextField(
                 controller: _emailController,
                 decoration: InputDecoration(
                   labelText: 'Correo Electrónico',
-                  labelStyle: TextStyle(color: Colors.grey),
+                  labelStyle: const TextStyle(color: Colors.grey),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8), // Bordes más suaves
-                    borderSide: BorderSide(color: Colors.grey),
+                    borderSide: const BorderSide(color: Colors.grey),
                   ),
                   filled: true,
                   fillColor: Colors.grey[100], // Fondo claro y suave para el campo
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
               // Campo de contraseña
               TextField(
@@ -97,20 +99,20 @@ class _SignupPageState extends State<SignupPage> {
                 obscureText: true,
                 decoration: InputDecoration(
                   labelText: 'Contraseña',
-                  labelStyle: TextStyle(color: Colors.grey),
+                  labelStyle: const TextStyle(color: Colors.grey),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8), // Bordes más suaves
-                    borderSide: BorderSide(color: Colors.grey),
+                    borderSide: const BorderSide(color: Colors.grey),
                   ),
                   filled: true,
                   fillColor: Colors.grey[100], // Fondo claro y suave para el campo
                 ),
               ),
-              SizedBox(height: 40),
+              const SizedBox(height: 40),
 
               // Botón de registrarse
               _isLoading
-                  ? CircularProgressIndicator() // Mostrar indicador de carga
+                  ? const CircularProgressIndicator() // Mostrar indicador de carga
                   : ElevatedButton(
                 onPressed: _signup,
                 style: ElevatedButton.styleFrom(
@@ -118,9 +120,9 @@ class _SignupPageState extends State<SignupPage> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8), // Bordes suaves
                   ),
-                  padding: EdgeInsets.symmetric(vertical: 14),
+                  padding: const EdgeInsets.symmetric(vertical: 14),
                 ),
-                child: Text(
+                child: const Text(
                   'Registrarse',
                   style: TextStyle(
                     fontSize: 18,
@@ -128,7 +130,7 @@ class _SignupPageState extends State<SignupPage> {
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
               // Botón para ir a la página de inicio de sesión
               TextButton(
@@ -138,7 +140,7 @@ class _SignupPageState extends State<SignupPage> {
                     MaterialPageRoute(builder: (context) => LoginPage()),
                   );
                 },
-                child: Text(
+                child: const Text(
                   '¿Ya tienes una cuenta? Iniciar Sesión',
                   style: TextStyle(
                     color: Colors.blue, // Texto azul para el enlace
