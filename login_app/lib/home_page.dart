@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'form_page.dart'; // Página del formulario
 import 'submitted_forms_page.dart'; // Página de formularios enviados
+import 'biometrics_page.dart'; // Importa la página de configuración biométrica
 import 'package:local_auth/local_auth.dart';
 
 class HomePage extends StatelessWidget {
@@ -16,46 +17,9 @@ class HomePage extends StatelessWidget {
   }
 
   Future<void> _navigateToFingerprintSettings(BuildContext context) async {
-    // Verificar si el dispositivo puede usar biometría
-    bool canCheckBiometrics = await _localAuth.canCheckBiometrics;
-    if (!canCheckBiometrics) {
-      _showErrorDialog(context, 'Este dispositivo no tiene soporte para huella digital.');
-      return;
-    }
-
-    // Informar al usuario si todo está bien
-    _showInfoDialog(context, 'Por favor, configura tu huella digital en los ajustes del dispositivo.');
-  }
-
-  void _showErrorDialog(BuildContext context, String message) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Error'),
-        content: Text(message),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: const Text('OK'),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _showInfoDialog(BuildContext context, String message) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Información'),
-        content: Text(message),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: const Text('OK'),
-          ),
-        ],
-      ),
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const BiometricsPage()),
     );
   }
 
