@@ -2,15 +2,61 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'form_page.dart'; // Página del formulario
 import 'submitted_forms_page.dart'; // Página de formularios enviados
+import 'package:local_auth/local_auth.dart';
 
 class HomePage extends StatelessWidget {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final LocalAuthentication _localAuth = LocalAuthentication();
 
-  cons HomePage({Key? key}) : super(key: key);
+  HomePage({Key? key}) : super(key: key);
 
   void _logout(BuildContext context) async {
     await _auth.signOut();
     Navigator.pushReplacementNamed(context, '/');
+  }
+
+  Future<void> _navigateToFingerprintSettings(BuildContext context) async {
+    // Verificar si el dispositivo puede usar biometría
+    bool canCheckBiometrics = await _localAuth.canCheckBiometrics;
+    if (!canCheckBiometrics) {
+      _showErrorDialog(context, 'Este dispositivo no tiene soporte para huella digital.');
+      return;
+    }
+
+    // Informar al usuario si todo está bien
+    _showInfoDialog(context, 'Por favor, configura tu huella digital en los ajustes del dispositivo.');
+  }
+
+  void _showErrorDialog(BuildContext context, String message) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Error'),
+        content: Text(message),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showInfoDialog(BuildContext context, String message) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Información'),
+        content: Text(message),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -24,24 +70,22 @@ class HomePage extends StatelessWidget {
         titleTextStyle: const TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
       ),
       body: Container(
-        color: Colors.grey[200], // Fondo claro
+        color: Colors.grey[200],
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Bienvenida ajustada
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
               child: Text(
                 'Bienvenido, ${_auth.currentUser?.email ?? "Usuario"}',
                 style: const TextStyle(
-                  fontSize: 15, // Aumenté el tamaño de la fuente
+                  fontSize: 15,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black, // Texto en negro
+                  color: Colors.black,
                 ),
                 textAlign: TextAlign.center,
               ),
             ),
-            // Tarjetas con botones
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -70,14 +114,28 @@ class HomePage extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 30),
-            // Botón de cerrar sesión
+            ElevatedButton.icon(
+              onPressed: () => _navigateToFingerprintSettings(context),
+              icon: const Icon(Icons.fingerprint),
+              label: const Text('Configurar Huella Digital'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.greenAccent,
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                textStyle: const TextStyle(fontSize: 16),
+              ),
+            ),
+            const SizedBox(height: 30),
             ElevatedButton.icon(
               onPressed: () => _logout(context),
               icon: const Icon(Icons.logout),
               label: const Text('Cerrar Sesión'),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.redAccent, // Fondo del botón
-                foregroundColor: Colors.white, // Color del texto e ícono
+                backgroundColor: Colors.redAccent,
+                foregroundColor: Colors.white,
                 padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
@@ -91,7 +149,6 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  // Widget para crear tarjetas estilizadas
   Widget _buildCard({
     required IconData icon,
     required Color color,
@@ -109,7 +166,7 @@ class HomePage extends StatelessWidget {
           padding: const EdgeInsets.all(15),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
-            color: Colors.white, // Fondo blanco para las tarjetas
+            color: Colors.white,
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -121,7 +178,7 @@ class HomePage extends StatelessWidget {
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black, // Texto en negro
+                  color: Colors.black,
                 ),
                 textAlign: TextAlign.center,
               ),
